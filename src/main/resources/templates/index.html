@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <div style="text-align: center;">
+
+    <span th:if="${weather != null}" th:text="${weather.getMain().getTemp()}"></span>
+
     <form th:action="@{/}" method="post">
         <input name="cityName" type="text" placeholder="Podaj nazwę">
         <button type="submit" value="Wyślij"></button>
