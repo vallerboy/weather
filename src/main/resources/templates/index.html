@@ -6,13 +6,23 @@
 </head>
 <body>
 <div style="text-align: center;">
-
-    <span th:if="${weather != null}" th:text="${weather.getMain().getTemp()}"></span>
-
     <form th:action="@{/}" method="post">
         <input name="cityName" type="text" placeholder="Podaj nazwę">
         <button type="submit" value="Wyślij"></button>
     </form>
+
+    <h1>Temperatura aktualna</h1>
+
+    <span th:if="${weather != null}" th:text="${weather.getMain().getTemp() + ' ' + weather.getMain().getPressure()}"></span>
+    <span th:if="${weather != null}" th:text="${weather.getClouds().getClouds()}"></span>
+
+
+    <h1>Temperatura na 5 dni</h1>
+
+    <ul th:if="${forecast != null}">
+        <li th:each="weatherAsDay : ${forecast.getListOfWeather()}" th:text="${weatherAsDay.getDate() + ': ' + weatherAsDay.getMain().getTemp()}"></li>
+    </ul>
+
 </div>
 </body>
 </html>
