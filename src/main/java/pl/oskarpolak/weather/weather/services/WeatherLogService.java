@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import pl.oskarpolak.weather.weather.dtos.ForecastWeatherDto;
 import pl.oskarpolak.weather.weather.dtos.WeatherDto;
-import pl.oskarpolak.weather.weather.entites.WeatherLogEntity;
 import pl.oskarpolak.weather.weather.repositories.WeatherLogRepository;
 
 @Service
@@ -35,10 +34,10 @@ public class WeatherLogService {
     // }";
 
 
-    //będę ją wywoływal Controllera
-//    public boolean saveWeatherLog(WeatherForm weatherForm){
-//        return weatherLogRepository.save(new WeatherLogEntity(weatherForm)) != null;
-//    }
+
+    public boolean saveWeatherLog(WeatherDto weatherDto){
+
+    }
 
     public WeatherDto getCurrentWeather(String cityName) {
         RestTemplate restTemplate = getRestTemplate();
