@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="text-align: center;">
+    <form action="/register" method="post" th:object="${registerForm}">
+        Login: <input type="text" th:field="*{login}"> <br/>
+        Hasło: <input type="password" th:field="*{password}"> <br/>
+        Email: <input type="email" th:field="*{email}"> <br/>
+        <button type="submit">Rejestuj mnie!</button>
+    </form>
+</div>
+</body>
+</html>
