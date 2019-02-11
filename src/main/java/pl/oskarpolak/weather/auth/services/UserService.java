@@ -13,6 +13,10 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+    public enum LoginResponse {
+        SUCCESS, BAD_CREDENTIALS, BANNED;
+    }
+
 
     final UserRepository userRepository;
 
@@ -38,19 +42,19 @@ public class UserService {
         return true;
     }
 
-    public boolean login(LoginForm loginForm) {
+    public LoginResponse login(LoginForm loginForm) {
         Optional<UserEntity> userOptional = userRepository.findByLogin(loginForm.getLogin());
         if(!userOptional.isPresent()){
-            return false;
+            return LoginResponse.BAD_CREDENTIALS;
         }
 
         if(!getBCrypt().matches(loginForm.getPassword(), userOptional.get().getPassword())){
-            return false;
+            return LoginResponse.BAD_CREDENTIALS;
         }
 
         userSession.setLogin(true);
         userSession.setUserEntity(userOptional.get());
-        return true;
+        return LoginResponse.SUCCESS;
     }
 
     private boolean isLoginFree(String login) {

@@ -29,10 +29,12 @@ public class LoginController {
     @PostMapping("/login")
     public String register(@ModelAttribute LoginForm loginForm,
                            Model model){ //zmienna1,  zmienna2, zmienna3
-        if(!userService.login(loginForm)){
-            model.addAttribute("info", "Bad login or password");
+        UserService.LoginResponse loginResponse = userService.login(loginForm);
+        if(loginResponse != UserService.LoginResponse.SUCCESS){
+            model.addAttribute("info", loginResponse);
             return "login";
         }
+
         return "redirect:/";
     }
 
