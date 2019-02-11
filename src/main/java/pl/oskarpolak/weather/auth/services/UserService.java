@@ -9,14 +9,19 @@ import pl.oskarpolak.weather.auth.forms.LoginForm;
 import pl.oskarpolak.weather.auth.forms.RegisterForm;
 import pl.oskarpolak.weather.auth.repositories.UserRepository;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
     final UserRepository userRepository;
 
+    final UserSession userSession;
+
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserSession userSession) {
         this.userRepository = userRepository;
+        this.userSession = userSession;
     }
 
     public boolean registerUser(RegisterForm registerForm){
@@ -33,6 +38,21 @@ public class UserService {
         return true;
     }
 
+    public boolean login(LoginForm loginForm) {
+        Optional<UserEntity> userOptional = userRepository.findByLogin(loginForm.getLogin());
+        if(!userOptional.isPresent()){
+            return false;
+        }
+
+        if(!getBCrypt().matches(loginForm.getPassword(), userOptional.get().getPassword())){
+            return false;
+        }
+
+        userSession.setLogin(true);
+        userSession.setUserEntity(userOptional.get());
+        return true;
+    }
+
     private boolean isLoginFree(String login) {
         return !userRepository.existsByLogin(login);
     }
@@ -40,9 +60,5 @@ public class UserService {
     @Bean
     public BCryptPasswordEncoder getBCrypt(){
         return new BCryptPasswordEncoder();
-    }
-
-    public boolean login(LoginForm loginForm) {
-
     }
 }

@@ -23,14 +23,17 @@ public class LoginController {
     @GetMapping("/login")
     public String register(Model model) {
         model.addAttribute("loginForm", new LoginForm());
-        return "register";
+        return "login";
     }
 
     @PostMapping("/login")
     public String register(@ModelAttribute LoginForm loginForm,
                            Model model){ //zmienna1,  zmienna2, zmienna3
-        userService.login(loginForm);
-        return "redirect:/login";
+        if(!userService.login(loginForm)){
+            model.addAttribute("info", "Bad login or password");
+            return "login";
+        }
+        return "redirect:/";
     }
 
 
