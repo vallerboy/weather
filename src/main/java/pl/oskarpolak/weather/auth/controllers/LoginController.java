@@ -6,32 +6,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.oskarpolak.weather.auth.forms.LoginForm;
 import pl.oskarpolak.weather.auth.forms.RegisterForm;
 import pl.oskarpolak.weather.auth.services.UserService;
 
 @Controller
-public class RegisterController {
+public class LoginController {
 
     final UserService userService;
 
     @Autowired
-    public RegisterController(UserService userService) {
+    public LoginController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/register")
+    @GetMapping("/login")
     public String register(Model model) {
-        model.addAttribute("registerForm", new RegisterForm());
+        model.addAttribute("loginForm", new LoginForm());
         return "register";
     }
 
-    @PostMapping("/register")
-    public String register(@ModelAttribute RegisterForm registerForm,
+    @PostMapping("/login")
+    public String register(@ModelAttribute LoginForm loginForm,
                            Model model){ //zmienna1,  zmienna2, zmienna3
-        if(!userService.registerUser(registerForm)){
-            model.addAttribute("info", "Login is already in use");
-            return "register";
-        }
+        userService.login(loginForm);
         return "redirect:/login";
     }
 

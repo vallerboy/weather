@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.oskarpolak.weather.auth.entities.UserEntity;
+import pl.oskarpolak.weather.auth.forms.LoginForm;
 import pl.oskarpolak.weather.auth.forms.RegisterForm;
 import pl.oskarpolak.weather.auth.repositories.UserRepository;
 
@@ -39,5 +40,9 @@ public class UserService {
     @Bean
     public BCryptPasswordEncoder getBCrypt(){
         return new BCryptPasswordEncoder();
+    }
+
+    public boolean login(LoginForm loginForm) {
+
     }
 }

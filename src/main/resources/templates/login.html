@@ -7,11 +7,10 @@
 <body>
 <div style="text-align: center;">
     <h1 th:text="${info}"></h1>
-    <form action="/register" method="post" th:object="${registerForm}">
+    <form action="/login" method="post" th:object="${loginForm}">
         Login: <input type="text" th:field="*{login}"> <br/>
         Hasło: <input type="password" th:field="*{password}"> <br/>
-        Email: <input type="email" th:field="*{email}"> <br/>
-        <button type="submit">Rejestuj mnie!</button>
+        <button type="submit">Zaloguj mnie!</button>
     </form>
 </div>
 </body>
