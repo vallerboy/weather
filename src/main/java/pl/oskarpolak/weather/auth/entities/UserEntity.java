@@ -1,11 +1,10 @@
 package pl.oskarpolak.weather.auth.entities;
 
 import lombok.Data;
+import pl.oskarpolak.weather.weather.entites.WeatherLogEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -17,4 +16,7 @@ public class UserEntity {
     private String email;
     //o czas rejestracji
     //status konta
+
+    @OneToMany(mappedBy = "user")
+    private List<WeatherLogEntity> weatherLog;
 }
