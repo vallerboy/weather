@@ -13,6 +13,7 @@
 
     <h1>Temperatura aktualna</h1>
 
+    <h3 style="color: green" th:if="${weather != null}" th:text="${weather.getCityName()}"></h3>
     <span th:if="${weather != null}" th:text="${weather.getMain().getTemp() + ' ' + weather.getMain().getPressure()}"></span>
     <span th:if="${weather != null}" th:text="${weather.getClouds().getClouds()}"></span>
 
@@ -23,6 +24,8 @@
         <li th:each="weatherAsDay : ${forecast.getListOfWeather()}" th:text="${weatherAsDay.getDate() + ': ' + weatherAsDay.getMain().getTemp()}"></li>
     </ul>
 
+     <br/>
+     <a href="/logout">Wyloguj mnie!</a>
 </div>
 </body>
 </html>

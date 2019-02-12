@@ -46,6 +46,7 @@ public class WeatherLogService {
     }
 
     public WeatherDto getCurrentWeather(String cityName) {
+        //i sprawdzacie gsonem
         RestTemplate restTemplate = getRestTemplate();
         WeatherDto weatherDto = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=metric&appid=" + apiKey, WeatherDto.class);
 

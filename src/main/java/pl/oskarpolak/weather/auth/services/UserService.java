@@ -57,6 +57,11 @@ public class UserService {
         return LoginResponse.SUCCESS;
     }
 
+    public void logout() {
+        userSession.setLogin(false);
+        userSession.setUserEntity(null);
+    }
+
     private boolean isLoginFree(String login) {
         return !userRepository.existsByLogin(login);
     }

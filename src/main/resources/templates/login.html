@@ -8,8 +8,8 @@
 <div style="text-align: center;">
 
     <th:block th:if="${info != null}" th:switch="${info}">
-        <span th:case="*{info.BAD_CREDENTIALS}">Błędne dane logowania</span>
-        <span th:case="*{info.BANNED}">Jesteś zbanowany</span>
+        <span th:case="*{info.BAD_CREDENTIALS}" th:text="#{Login.info.bad.credentials}"></span>
+        <span th:case="*{info.BANNED}" th:text="#{Login.info.banned}"></span>
     </th:block>
 
 
