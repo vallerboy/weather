@@ -18,4 +18,16 @@ public class WeatherLogEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+
+    @Override
+    public String toString() {
+        return "WeatherLogEntity{" +
+                "id=" + id +
+                ", cityName='" + cityName + '\'' +
+                ", cityTemp=" + cityTemp +
+                ", queryTime=" + queryTime +
+                //", user=" + user +
+                '}';
+    }
 }

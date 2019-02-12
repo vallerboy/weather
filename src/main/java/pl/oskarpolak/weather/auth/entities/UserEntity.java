@@ -17,6 +17,17 @@ public class UserEntity {
     //o czas rejestracji
     //status konta
 
-    @OneToMany(mappedBy = "user")
-    private List<WeatherLogEntity> weatherLog;
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY) //EAGER
+//    private List<WeatherLogEntity> weatherLog;
+
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

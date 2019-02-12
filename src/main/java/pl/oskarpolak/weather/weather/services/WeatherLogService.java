@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import pl.oskarpolak.weather.auth.services.UserSession;
 import pl.oskarpolak.weather.weather.dtos.ForecastWeatherDto;
 import pl.oskarpolak.weather.weather.dtos.WeatherDto;
 import pl.oskarpolak.weather.weather.entites.WeatherLogEntity;
 import pl.oskarpolak.weather.weather.mappers.WeatherDtoToWeatherEntityMapper;
 import pl.oskarpolak.weather.weather.repositories.WeatherLogRepository;
+
+import java.util.List;
 
 @Service
 public class WeatherLogService {
@@ -21,10 +24,12 @@ public class WeatherLogService {
 
 
     final WeatherLogRepository weatherLogRepository;
+    final UserSession userSession;
 
     @Autowired
-    public WeatherLogService(WeatherLogRepository weatherLogRepository) {
+    public WeatherLogService(WeatherLogRepository weatherLogRepository, UserSession userSession) {
         this.weatherLogRepository = weatherLogRepository;
+        this.userSession = userSession;
     }
 
 
@@ -42,6 +47,7 @@ public class WeatherLogService {
      */
     public  boolean saveWeatherLog(WeatherDto weatherDto){
         WeatherLogEntity weatherLogEntity = WeatherDtoToWeatherEntityMapper.convert(weatherDto);
+        weatherLogEntity.setUser(userSession.getUserEntity());
         return weatherLogRepository.save(weatherLogEntity) != null;
     }
 
@@ -59,6 +65,10 @@ public class WeatherLogService {
         return restTemplate.getForObject("http://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&units=metric&appid=" + apiKey, ForecastWeatherDto.class);
     }
 
+
+    public List<WeatherLogEntity> getWeatherLogForLoginUser(){
+        return weatherLogRepository.findAllByUser(userSession.getUserEntity());
+    }
 
     @Bean
     public RestTemplate getRestTemplate() {

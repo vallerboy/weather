@@ -9,9 +9,12 @@ import pl.oskarpolak.weather.auth.forms.LoginForm;
 import pl.oskarpolak.weather.auth.forms.RegisterForm;
 import pl.oskarpolak.weather.auth.repositories.UserRepository;
 
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import java.util.Optional;
 
 @Service
+@PersistenceContext(type = PersistenceContextType.EXTENDED)
 public class UserService {
     public enum LoginResponse {
         SUCCESS, BAD_CREDENTIALS, BANNED;
